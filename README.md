@@ -1,2 +1,4 @@
 # PowerShell-Scripting
-Proyecto dual de segundo curso del ciclo de grado superior de ASIX
+Módulo dual NF4-Powershell
+
+Este es el repositorio para practicar con Powershell
