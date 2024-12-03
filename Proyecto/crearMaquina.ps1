@@ -7,6 +7,7 @@ VBoxManage modifyvm $nombreMaquina --memory 2048 --cpus 2 --os-type "Windows10_6
 
 VBoxManage createmedium disk --filename "$VMPath\$nombreMaquina.vdi" --size 20480 --format VDI --variant Standard *> $null
 
+VBoxManage modifyvm $nombreMaquina --usb on --usbehci on
 VBoxManage storagectl $nombreMaquina --name "USB" --add usb --controller usb *> $null
 VBoxManage storageattach $nombreMaquina --storagectl "USB" --port 0 --device 0 --type hdd --medium "$VMPath\$nombreMaquina.vdi" *> $null
 
