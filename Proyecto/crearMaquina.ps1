@@ -1,23 +1,23 @@
-﻿$VMName = Read-Host "NuevaVM"
-$VMPath = "$Env:USERPROFILE\VirtualBox VMs\$VMName"
+﻿$nombreMaquina = Read-Host "Escribe el nombre de la máquina virtual que qieres crear"
+$VMPath = "$Env:USERPROFILE\VirtualBox VMs\$nombreMaquina"
 
-VBoxManage createvm --name $VMName --register *> $null
+VBoxManage createvm --name $nombreMaquina --register *> $null
 
-VBoxManage modifyvm $VMName --memory 2048 --cpus 2 --os-type "Windows10_64" *> $null
+VBoxManage modifyvm $nombreMaquina --memory 2048 --cpus 2 --os-type "Windows10_64" *> $null
 
-VBoxManage createmedium disk --filename "$VMPath\$VMName.vdi" --size 20480 --format VDI --variant Standard *> $null
+VBoxManage createmedium disk --filename "$VMPath\$nombreMaquina.vdi" --size 20480 --format VDI --variant Standard *> $null
 
-VBoxManage storagectl $VMName --name "USB" --add usb --controller usb *> $null
-VBoxManage storageattach $VMName --storagectl "USB" --port 0 --device 0 --type hdd --medium "$VMPath\$VMName.vdi" *> $null
+VBoxManage storagectl $nombreMaquina --name "USB" --add usb --controller usb *> $null
+VBoxManage storageattach $nombreMaquina --storagectl "USB" --port 0 --device 0 --type hdd --medium "$VMPath\$nombreMaquina.vdi" *> $null
 
 if (-Not (Test-Path -Path $VMPath)) {
     New-Item -ItemType Directory -Path $VMPath
 }
 
-VBoxManage modifyvm $VMName --nic1 nat *> $null
+VBoxManage modifyvm $nombreMaquina --nic1 nat *> $null
 
 for ($i = 2; $i -le 8; $i++) {
-    VBoxManage modifyvm $VMName --nic$i intnet *> $null
+    VBoxManage modifyvm $nombreMaquina --nic$i intnet *> $null
 }
 
-Write-Host "La máquina virtual $VMName se ha creado con 8 tarjetas de red."
+Write-Host "La máquina virtual $nombreMaquina se ha creado con 8 tarjetas de red."
